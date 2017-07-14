@@ -1,14 +1,12 @@
 define("game", ["game-data"], function(gameData) {
-    function Game() {
+    function Game(id) {
+        this.id = id;
         this.gameType = '';
         this.players = [];
         this.log = [];
     }
 
     Game.prototype = {
-        serialize: function() {
-            return JSON.stringify(this);
-        },
     }
 
     return Game;

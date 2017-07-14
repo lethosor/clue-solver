@@ -1,7 +1,12 @@
 .content {
+    max-width: 600px;
     margin: 60px 10px 10px;
 }
 
 .view {
     display: none;
+}
+
+.btn {
+    margin-bottom: 1em;
 }

@@ -5,11 +5,20 @@ define("ui/game-list", ["ui", "main"], function(ui, main) {
 
     $.extend(GameList.prototype, ui.View.prototype, {
         create: function() {
-            main.gameManager.addGame();
+            ui.hideView(this.id);
+            ui.showView('game-editor', {game: gameManager.addGame()});
         },
-        show: function() {
-
-        }
+        draw: function() {
+            var list = this.elt.find('.list-group').html('');
+            main.gameManager.listGames().forEach(function(game) {
+                list.append(ui.renderTemplate('game-list-item', game));
+            });
+            main.gameManager.save();
+        },
+        select: function(elt) {
+            ui.hideView(this.id);
+            ui.showView('game-editor', {game: gameManager.findGame(elt.attr('data-game-id'))});
+        },
     });
 
     return GameList;
