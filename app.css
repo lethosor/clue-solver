@@ -10,3 +10,24 @@
 .btn {
     margin-bottom: 1em;
 }
+
+.player-circle-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin-right: 20px;
+    background-color: red;
+}
+
+.player-form {
+    position: relative;
+    left: 100px;
+}
+
+.form-control {
+    font-weight: normal;
+}
+
+.form-control.error {
+    background-color: #fcc;
+}

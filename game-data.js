@@ -24,7 +24,7 @@ define({
             },
             {
                 "name": "Mrs. White",
-                "color": "white",
+                "color": "#eee",
             }
         ],
         "weapons": [

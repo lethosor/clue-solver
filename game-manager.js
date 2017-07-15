@@ -33,7 +33,9 @@ define("game-manager", ["game"], function(Game) {
             return next;
         },
         load: function() {
-            return JSON.parse(localStorage.getItem('games'));
+            return (JSON.parse(localStorage.getItem('games')) || []).map(function(game) {
+                return new Game(game.id, game);
+            });
         },
         save: function() {
             localStorage.setItem('games', JSON.stringify(this.games));

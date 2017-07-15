@@ -39,8 +39,9 @@
 
       <script type="text/template" id="game-list-item">
         <a class="list-group-item" href="#select" data-game-id="{{id}}">
+          <button class="btn btn-default pull-right" href="#edit">Edit</button>
           <div>Game {{id}}</div>
-          <div>{{id}},{{typeName}},{{gameType}}</div>
+          <div>{{typeName}}</div>
         </a>
       </script>
     </div>
@@ -49,7 +50,37 @@
       <a class="btn btn-default" href="#view/game-list">Done</a>
       <a class="btn btn-danger pull-right" href="#delete">Delete</a>
       <h2>Edit game <span id="game-id"></span></h2>
+      <label>Game type:</label><br>
+      <select class="form-control" id="game-type"></select>
+      <div>
+        <label>Players:</label><br>
+        <input type="number" id="num-players" class="form-control" value="4" min="2" max="8">
+      </div>
+      <h3>Players</h3>
+      <div class="list-group" id="player-list">
+
+      </div>
+
+      <script type="text/template" id="player-edit">
+        <div class="list-group-item" data-id="{{id}}">
+          <div class="row">
+            <div class="col-xs-3">
+              <div class="player-circle-icon" style="background-color: {{color}};"></div>
+            </div>
+            <div class="col-xs-9">
+              <h4>Player {{id1}}</h4>
+              <label>Name:
+                <input class="form-control" name="name" value="{{name}}" placeholder="{{placeholder}}">
+              </label>
+              <label>Character:
+                <select class="form-control" name="player"></select>
+              </label>
+            </div>
+          </div>
+        </div>
+      </script>
     </div>
+
   </div>
 
 </body>

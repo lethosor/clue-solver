@@ -6,7 +6,7 @@ define("ui", [], function() {
 
     function renderTemplate(id, data) {
         data = data || {};
-        var text = $('script[type="text/template"]').text();
+        var text = $('script[type="text/template"]#' + id).text();
         return text.replace(/{{(.+?)}}/g, function(_, name) {
             return data[name];
         });
@@ -14,7 +14,7 @@ define("ui", [], function() {
 
     function init() {
         $(document).on('click', '.view a', function(e) {
-            if ($(this).attr('href').indexOf('#') == 0) {
+            if (($(this).attr('href') || '').indexOf('#') == 0) {
                 e.preventDefault();
                 var target = $(this).attr('href').substr(1).split('/');
                 if (target.length == 1) {
@@ -30,11 +30,10 @@ define("ui", [], function() {
         var view_modules = $('.view').map(function() {
             return "ui/" + this.id;
         }).toArray();
-        console.log(view_modules);
 
         require(view_modules, function() {
             $('.view').each(function() {
-                registerView(this.id, new (require("ui/" + this.id))());
+                registerView(this.id, new (require("ui/" + this.id))($(this)));
             });
             ready = true;
             ready_callbacks.forEach(function(f) {
