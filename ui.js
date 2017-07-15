@@ -17,6 +17,8 @@ define("ui", [], function() {
             if (($(this).attr('href') || '').indexOf('#') == 0) {
                 e.preventDefault();
                 e.stopPropagation();
+                if ($(this).hasClass('disabled'))
+                    return;
                 var target = $(this).attr('href').substr(1).split('/');
                 if (target.length == 1) {
                     getElementView($(this)).dispatch(target[0], $(this));

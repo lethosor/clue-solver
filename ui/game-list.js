@@ -12,6 +12,8 @@ define("ui/game-list", ["ui", "main"], function(ui, main) {
             var list = this.elt.find('.list-group').html('');
             main.gameManager.listGames().forEach(function(game) {
                 list.append(ui.renderTemplate('game-list-item', game));
+                if (!game.type)
+                    list.find('.list-group-item:last').addClass('disabled');
             });
             main.gameManager.save();
         },
