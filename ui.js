@@ -13,9 +13,10 @@ define("ui", [], function() {
     }
 
     function init() {
-        $(document).on('click', '.view a', function(e) {
+        $(document).on('click', '.view a, .view button', function(e) {
             if (($(this).attr('href') || '').indexOf('#') == 0) {
                 e.preventDefault();
+                e.stopPropagation();
                 var target = $(this).attr('href').substr(1).split('/');
                 if (target.length == 1) {
                     getElementView($(this)).dispatch(target[0], $(this));

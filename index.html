@@ -24,7 +24,6 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a href="#"></a></li>
         </ul>
       </div>
     </div>
@@ -79,6 +78,27 @@
           </div>
         </div>
       </script>
+    </div>
+
+    <div class="view" id="game-play">
+      <a class="btn btn-default" href="#view/game-list">Switch game</a>
+      <h2>Game <span id="game-id"></span></h2>
+      <span id="game-type">Unknown type</span>
+
+      <div class="page" id="page-select-player">
+        <h3>Select current player</h3>
+
+        <script type="text/template" id="select-player-item">
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="player-circle-icon small" style="background-color: {{color}};"></div>
+            </div>
+            <div class="col-xs-10">
+              <strong>{{char}}</strong><br>{{name}}
+            </div>
+          </div>
+        </script>
+      </div>
     </div>
 
   </div>
