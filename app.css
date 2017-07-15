@@ -31,3 +31,20 @@
 .form-control.error {
     background-color: #fcc;
 }
+
+.list-group-select .list-group-item {
+    cursor: pointer;
+}
+
+.list-group-select .list-group-item:hover {
+    background-color: #eee;
+}
+
+.list-group-select .list-group-item.selected {
+    color: white;
+    background-color: #44f;
+}
+
+.list-group-select .list-group-item.selected:hover {
+    background-color: #33f;
+}
