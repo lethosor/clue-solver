@@ -37,7 +37,8 @@ define("ui/list-select", [], function() {
     Object.defineProperties(ListSelect.prototype, {
         selected: {
             get: function() {
-                return this.element.find('.list-group-item').index('.selected');
+                return this.element.find('.list-group-item').index(
+                    this.element.find('.list-group-item.selected'));
             },
             set: function(value) {
                 this.element.find('.list-group-item').removeClass('selected').eq(value).addClass('selected');
