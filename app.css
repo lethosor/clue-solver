@@ -11,6 +11,10 @@
     margin-bottom: 1em;
 }
 
+.btn-wide {
+    width: 100%;
+}
+
 .player-circle-icon {
     width: 80px;
     height: 80px;
