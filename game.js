@@ -4,6 +4,21 @@ define("game", ["game-data"], function(gameData) {
         this.id = id;
         this.type = data.type || '';
         this.players = data.players || [];
+        /*
+        Log format:
+        {
+            player: id,
+            guess: {
+                player: id,
+                weapon: id,
+                room: id
+            },
+            has: {
+                some: id,
+                none: [id...]
+            }
+        }
+        */
         this.log = data.log || [];
     }
 
@@ -28,6 +43,20 @@ define("game", ["game-data"], function(gameData) {
             if (!this.players[id].name && !allow_empty)
                 return 'Player ' + (id + 1);
             return this.players[id].name;
+        },
+        newLogEntry: function() {
+            return {
+                player: undefined,
+                guess: {
+                    player: undefined,
+                    weapon: undefined,
+                    room: undefined
+                },
+                has: {
+                    some: undefined,
+                    none: []
+                }
+            }
         },
     }
 

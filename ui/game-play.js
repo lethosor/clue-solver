@@ -19,6 +19,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
         show: function() {
             this.game = this.data.game;
             this.gdata = gameData[this.game.type];
+            this.log_entry = this.game.log[this.data.log_index] || this.game.newLogEntry();
 
             this.elt.find('.list-group:not(.no-remove)').remove();
 
@@ -54,8 +55,10 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
         },
         selectPlayer: function(id) {
             this.current_player_id = id;
+            this.log_entry.player = id;
             this.current_player = this.game.players[id];
             this.second_player_id = addMod(this.current_player_id, 1, this.game.players.length);
+            this.second_player_id_orig = this.second_player_id;
             this.elt.find('.current-player-name').text(
                 this.gdata.players[this.current_player.player].name + ' (' +
                 this.game.getPlayerName(id) + ')'
@@ -79,6 +82,9 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
                 this.elt.find('#bad-suggestion').removeClass('hidden');
                 return;
             }
+            this.log_entry.guess.player = this.card_choices.players.selected;
+            this.log_entry.guess.weapon = this.card_choices.weapons.selected;
+            this.log_entry.guess.room = this.card_choices.rooms.selected;
             this.elt.find('#bad-suggestion').addClass('hidden');
             this.page('check');
             this.elt.find('.current-suggestion').text(
@@ -109,13 +115,24 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
         secondPlayerNone: function() {
             this.logCards(this.second_player_id, false);
             this.secondPlayerNext();
+            if (this.second_player_id == this.second_player_id_orig)
+                this.finishGuess();
         },
         secondPlayerSome: function() {
             this.logCards(this.second_player_id, true);
-            this.show();
+            this.finishGuess();
         },
-        logCards: function() {
-            // nothing yet
+        logCards: function(id, has_some) {
+            if (has_some)
+                this.log_entry.has.some = id;
+            else
+                this.log_entry.has.none.push(id);
+        },
+        finishGuess: function() {
+            if (this.data.log_index === undefined)
+                this.data.log_index = this.game.log.length;
+            this.game.log[this.data.log_index] = this.log_entry;
+            this.show();
         },
     });
 
