@@ -4,9 +4,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="static/bootstrap-3.3.7.min.css">
   <link rel="stylesheet" href="static/bootstrap-theme-3.3.7.min.css">
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="app.css?x">
   <script src="static/jquery-3.2.1.min.js"></script>
   <script src="static/bootstrap-3.3.7.min.js"></script>
+  <script type="text/javascript">
+      var require = {
+          urlArgs : "bust="+new Date().getTime()
+      };
+  </script>
   <script src="static/require.js" data-main="main"></script>
 </head>
 <body>
@@ -115,8 +120,29 @@
       </div>
 
       <div class="page" id="page-check">
-        Player: <span class="current-player-name"></span><br>
-        <span class="current-suggestion"></span> (<a href="#page" data-page="select-cards">Change</a>)
+        Player: <span class="current-player-name"></span> (<a href="#page" data-page="select-player">Change</a>) <br>
+        Guess: <span class="current-suggestion"></span> (<a href="#page" data-page="select-cards">Change</a>)
+        <div class="list-group no-remove">
+          <div class="list-group-item">
+            <p class="second-player-name"></p>
+            <div class="row">
+              <div class="col-xs-6">
+                <a class="btn btn-wide btn-danger" href="#secondPlayerNone">No cards</a>
+              </div>
+              <div class="col-xs-6">
+                <a class="btn btn-wide btn-success" href="#secondPlayerSome">Has cards</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <a class="btn btn-wide btn-default" href="#secondPlayerPrev">Previous player</a>
+              </div>
+              <div class="col-xs-6">
+                <a class="btn btn-wide btn-default" href="#secondPlayerNext">Next player</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div> <!-- /#game-play -->

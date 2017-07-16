@@ -1,5 +1,17 @@
 define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(ui, main, gameData, ListSelect) {
 
+    function addMod(orig, delta, mod) {
+        var ret = orig + delta;
+        if (ret > 0)
+            return ret % mod;
+        while (ret < 0)
+            ret += mod;
+        return ret;
+    }
+
+    // data:
+    // - game: Game
+    // - log_index: current log index - if undefined, append to log
     function GamePlay(elt) {
     }
 
@@ -8,7 +20,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
             this.game = this.data.game;
             this.gdata = gameData[this.game.type];
 
-            this.elt.find('.list-group').remove();
+            this.elt.find('.list-group:not(.no-remove)').remove();
 
             var player_choice_elts = this.game.players.map(function(player, id) {
                 return ui.renderTemplate('select-player-item', {
@@ -41,11 +53,14 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
             this.elt.find('#game-type').text(this.game.typeName);
         },
         selectPlayer: function(id) {
+            this.current_player_id = id;
             this.current_player = this.game.players[id];
+            this.second_player_id = addMod(this.current_player_id, 1, this.game.players.length);
             this.elt.find('.current-player-name').text(
                 this.gdata.players[this.current_player.player].name + ' (' +
                 this.game.getPlayerName(id) + ')'
             );
+            this.secondPlayerDraw();
             this.page('select-cards');
         },
         page: function(page) {
@@ -71,6 +86,36 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
                 this.gdata.weapons[this.card_choices.weapons.selected] + ' / ' +
                 this.gdata.rooms[this.card_choices.rooms.selected]
             );
+        },
+        secondPlayerDraw: function() {
+            var player = this.game.players[this.second_player_id];
+            this.elt.find('.second-player-name').text(
+                this.gdata.players[player.player].name + ' (' +
+                this.game.getPlayerName(this.second_player_id) + ')'
+            );
+        },
+        secondPlayerMove: function(delta) {
+            do {
+                this.second_player_id = addMod(this.second_player_id, delta, this.game.players.length);
+            } while (this.second_player_id == this.current_player_id);
+            this.secondPlayerDraw();
+        },
+        secondPlayerNext: function() {
+            this.secondPlayerMove(1);
+        },
+        secondPlayerPrev: function() {
+            this.secondPlayerMove(-1);
+        },
+        secondPlayerNone: function() {
+            this.logCards(this.second_player_id, false);
+            this.secondPlayerNext();
+        },
+        secondPlayerSome: function() {
+            this.logCards(this.second_player_id, true);
+            this.show();
+        },
+        logCards: function() {
+            // nothing yet
         },
     });
 

@@ -19,11 +19,13 @@ define("ui/game-list", ["ui", "main"], function(ui, main) {
         },
         select: function(elt) {
             ui.hideView(this.id);
-            ui.showView('game-play', {game: gameManager.findGame(elt.attr('data-game-id'))});
+            main.game = gameManager.findGame(elt.attr('data-game-id'));
+            ui.showView('game-play', {game: main.game});
         },
         edit: function(elt) {
             ui.hideView(this.id);
-            ui.showView('game-editor', {game: gameManager.findGame(elt.parent().attr('data-game-id'))});
+            main.game = gameManager.findGame(elt.parent().attr('data-game-id'));
+            ui.showView('game-editor', {game: main.game});
         },
     });
 
