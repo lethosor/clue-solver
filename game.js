@@ -70,6 +70,11 @@ define("game", ["game-data"], function(gameData) {
                 return gameData[this.type].name;
             },
         },
+        gameData: {
+            get: function() {
+                return gameData[this.type];
+            },
+        },
     });
 
     return Game;
