@@ -15,6 +15,7 @@ define("game", ["game-data"], function(gameData) {
             },
             has: {
                 some: id,
+                card: ('p'|'w'|'r' + card_id) || undefined,
                 none: [id...]
             }
         }

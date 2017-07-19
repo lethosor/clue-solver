@@ -100,6 +100,31 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
                 this.gdata.weapons[this.card_choices.weapons.selected] + ' / ' +
                 this.gdata.rooms[this.card_choices.rooms.selected]
             );
+
+            if (this.current_player_id == 0) {
+                this.shown_choices_raw = [
+                    'p' + this.card_choices.players.selected,
+                    'w' + this.card_choices.weapons.selected,
+                    'r' + this.card_choices.rooms.selected
+                ];
+                this.shown_choices = new ListSelect([
+                    this.gdata.players[this.card_choices.players.selected].name,
+                    this.gdata.weapons[this.card_choices.weapons.selected],
+                    this.gdata.rooms[this.card_choices.rooms.selected]
+                ]);
+                this.shown_choices.onChange(this.selectShown.bind(this));
+                this.elt.find('#container-shown').append(this.shown_choices.element);
+                this.elt.find('[href="#secondPlayerSome"]').addClass('disabled');
+            }
+            else {
+                this.shown_choices_raw = undefined;
+                this.shown_choices = undefined;
+                this.elt.find('[href="#secondPlayerSome"]').removeClass('disabled');
+            }
+        },
+        selectShown: function(id) {
+            this.log_entry.card = this.shown_choices_raw[this.shown_choices.selected];
+            this.elt.find('[href="#secondPlayerSome"]').removeClass('disabled');
         },
         secondPlayerDraw: function() {
             var player = this.game.players[this.second_player_id];
