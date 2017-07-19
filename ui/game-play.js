@@ -19,6 +19,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
         show: function() {
             this.game = this.data.game;
             this.gdata = gameData[this.game.type];
+            this.new_play = (this.data.log_index == undefined);
             this.log_entry = this.game.log[this.data.log_index] || this.game.newLogEntry();
 
             this.elt.find('.list-group:not(.no-remove)').remove();
@@ -43,7 +44,14 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
                 this.elt.find('#container-' + id).append(select.element);
             }.bind(this));
 
-            this.page('select-player');
+            if (this.new_play && this.game.log.length > 0) {
+                var last_player = this.game.log[this.game.log.length - 1].player;
+                // use .selected to visibly update the list too
+                this.player_choices.selected = addMod(last_player, 1, this.game.players.length);
+            }
+            else {
+                this.page('select-player');
+            }
             this.draw();
         },
         hide: function() {
@@ -129,11 +137,23 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
                 this.log_entry.has.none.push(id);
         },
         finishGuess: function() {
-            if (this.data.log_index === undefined)
-                this.data.log_index = this.game.log.length;
-            this.game.log[this.data.log_index] = this.log_entry;
+            if (this.new_play) {
+                this.game.log.push(this.log_entry);
+            }
+            else {
+                this.game.log[this.data.log_index] = this.log_entry;
+            }
+
             main.gameManager.save();
-            this.show();
+
+            if (this.new_play) {
+                // move on to next play
+                this.show();
+            }
+            else {
+                // todo: go back
+                this.show();
+            }
         },
     });
 
