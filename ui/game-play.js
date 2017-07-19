@@ -132,6 +132,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
             if (this.data.log_index === undefined)
                 this.data.log_index = this.game.log.length;
             this.game.log[this.data.log_index] = this.log_entry;
+            main.gameManager.save();
             this.show();
         },
     });
