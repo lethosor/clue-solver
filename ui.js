@@ -1,6 +1,7 @@
 define("ui", [], function() {
 
     var views = {};
+    var overlays = {};
     var ready = false;
     var ready_callbacks = [];
 
@@ -93,6 +94,15 @@ define("ui", [], function() {
         views[id].data = data;
         views[id].show();
         views[id].elt.show();
+
+        if (views[id].modal) {
+            if (!overlays[id]) {
+                overlays[id] = $('<div>').addClass('overlay').appendTo('body').click(function() {
+                    hideView(id);
+                });
+            }
+            overlays[id].show();
+        }
     }
 
     function hideView(id) {
@@ -100,6 +110,8 @@ define("ui", [], function() {
             throw new Error("bad view id: " + id);
         views[id].hide();
         views[id].elt.hide();
+        if (overlays[id])
+            overlays[id].hide();
     }
 
     return {
