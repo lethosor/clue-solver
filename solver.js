@@ -26,7 +26,36 @@ define("solver", ["util"], function(util) {
         return map;
     }
 
+    function getCardMatrix(game, cardMap) {
+        var baseEntry = {};
+        for (var i = 0; i < game.gameData.players.length; i++)
+            baseEntry['p' + i] = 'unknown';
+        for (var i = 0; i < game.gameData.weapons.length; i++)
+            baseEntry['w' + i] = 'unknown';
+        for (var i = 0; i < game.gameData.rooms.length; i++)
+            baseEntry['r' + i] = 'unknown';
+
+        var matrix = game.players.map(function(_, i) {
+            var entry = $.extend({}, baseEntry);
+
+            cardMap[i].some.forEach(function(cards) {
+                cards.forEach(function(card) {
+                    entry[card] = 'maybe';
+                })
+            });
+
+            cardMap[i].none.forEach(function(card) {
+                entry[card] = 'no';
+            });
+
+            return entry;
+        });
+
+        return matrix;
+    }
+
     return {
         getPlayerCardMap: getPlayerCardMap,
+        getCardMatrix: getCardMatrix,
     }
 });

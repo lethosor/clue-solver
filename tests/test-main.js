@@ -74,6 +74,9 @@ define("tests/test-main", ["game", "solver"], function(Game, solver) {
         assertArrayContentsEqual(cmap[3].some, [['p4', 'w5', 'r6']]);
         // player 2 has none of those
         assertArrayContentsEqual(cmap[2].none, ['p4', 'w5', 'r6']);
+
+        var mat = solver.getCardMatrix(game, cmap);
+        console.log(mat);
     }
 
     wrapLog(main);
