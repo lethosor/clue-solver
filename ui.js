@@ -28,6 +28,10 @@ define("ui", [], function() {
                     hideView(getElementView($(this)).id);
                     showView(target[1]);
                 }
+                else if (target[0] == 'ui') {
+                    if (target[1] == 'hide')
+                        hideView(getElementView($(this)).id);
+                }
             }
         });
 
@@ -102,6 +106,7 @@ define("ui", [], function() {
                 });
             }
             overlays[id].show();
+            $('body').css('overflow', 'hidden');
         }
     }
 
@@ -110,8 +115,10 @@ define("ui", [], function() {
             throw new Error("bad view id: " + id);
         views[id].hide();
         views[id].elt.hide();
-        if (overlays[id])
+        if (overlays[id]) {
             overlays[id].hide();
+            $('body').css('overflow', 'auto');
+        }
     }
 
     return {

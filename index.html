@@ -150,7 +150,25 @@
     </div> <!-- /#game-play -->
 
     <div class="view modal" id="grid">
-      <h2>Grid</h2>
+      <div class="modal-header">Grid
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" href="#ui/hide">&times;</button>
+      </div>
+
+      <table class="table table-bordered solver-grid">
+        <thead>
+          <tr>
+            <th>Card</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <script type="text/template" id="grid-header-col">
+        <th>
+          <div class="player-circle-icon xs" style="background-color: {{color}};"></div>
+        </th>
+      </script>
     </div>
 
   </div>

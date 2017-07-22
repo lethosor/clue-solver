@@ -5,6 +5,7 @@
 
 .view {
     display: none;
+    overflow: auto;
 }
 
 .view.modal {
@@ -48,6 +49,11 @@
     border-radius: 25px;
 }
 
+.player-circle-icon.xs {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+}
 
 .player-form {
     position: relative;
@@ -77,4 +83,9 @@
 
 .list-group-select .list-group-item.selected:hover {
     background-color: #33f;
+}
+
+.solver-grid td[colspan] {
+    background-color: #eee;
+    text-transform: capitalize;
 }
