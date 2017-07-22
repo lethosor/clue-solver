@@ -80,6 +80,9 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
             this.elt.find('.page').hide();
             this.elt.find('.page#page-' + page).show();
         },
+        showGrid: function() {
+            ui.showView('grid', {game: this.game});
+        },
         suggestionOk: function() {
             return this.card_choices.players.selected >= 0 &&
                 this.card_choices.weapons.selected >= 0 &&
