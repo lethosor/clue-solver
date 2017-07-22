@@ -39,7 +39,7 @@ define("tests/test-main", ["game", "solver"], function(Game, solver) {
         assert(arraysEqual(a1, a2), msg);
     }
 
-    var game = new Game({type: 'parker'});
+    var game = new Game(-20, {type: 'parker'});
     for (var i = 0; i < 5; i++)
         game.players.push(game.newPlayer());
 
