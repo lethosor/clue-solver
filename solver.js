@@ -4,6 +4,7 @@ define("solver", ["util"], function(util) {
         /* structure:
         {
             player id: {
+                known: [card, card...],
                 some: [[card, card...], [card, card...]...],
                 none: [card, card...]
             },
@@ -12,10 +13,14 @@ define("solver", ["util"], function(util) {
         */
         var map = {};
         for (var i = 0; i < game.players.length; i++) {
-            map[i] = {some: [], none: []};
+            map[i] = {known: [], some: [], none: []};
         }
 
         game.log.forEach(function(entry) {
+            if (entry.card) {
+                map[entry.has.some].known.push(entry.card);
+                return;
+            }
             cards = ['w' + entry.guess.weapon, 'p' + entry.guess.player, 'r' + entry.guess.room];
             if (entry.has.some !== undefined)
                 map[entry.has.some].some.push(cards);
@@ -46,6 +51,10 @@ define("solver", ["util"], function(util) {
 
             cardMap[i].none.forEach(function(card) {
                 entry[card] = 'no';
+            });
+
+            cardMap[i].known.forEach(function(card) {
+                entry[card] = 'yes';
             });
 
             return entry;
