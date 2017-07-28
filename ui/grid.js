@@ -27,6 +27,8 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
             this.game.players.forEach(function(player, i) {
                 this.elt.find('thead tr').append(ui.renderTemplate('grid-header-col', {
                     color: this.game.gameData.players[i].color,
+                    name: this.game.players[i].name,
+                    player: this.game.gameData.players[i].name,
                 }));
             }.bind(this));
 
@@ -48,11 +50,15 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
                         $('<td>').text(item.name || item)
                     );
                     for (var i = 0; i < game.players.length; i++) {
-                        row.append($('<td>', {
+                        var card = cat.substr(0, 1) + item_i;
+                        var td = $('<td>', {
                             class: CELL_CLASSES[
-                                this.matrix_current[i][cat.substr(0, 1) + item_i]
+                                this.matrix_current[i][card]
                             ]
-                        }));
+                        });
+                        if (this.matrix_current[i][card] != 'unknown')
+                            td.text(this.matrix_current[i][card]);
+                        row.append(td);
                     }
                     tbody.append(row);
                 };

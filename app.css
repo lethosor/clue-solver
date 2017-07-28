@@ -85,6 +85,11 @@
     background-color: #33f;
 }
 
+.solver-grid th.grid-header-cell {
+    font-size: 75%;
+    vertical-align: top;
+}
+
 .solver-grid td[colspan] {
     background-color: #eee;
     text-transform: capitalize;
