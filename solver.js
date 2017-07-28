@@ -70,6 +70,18 @@ define("solver", ["util"], function(util) {
         do {
             changed = false;
 
+            // add known cards to everyone else's "none"
+            // (only do this once!)
+            for (var pi = 0; pi < game.players.length; pi++) {
+                for (var ki = 0; ki < cardMap[pi].known.length; ki++) {
+                    for (var pi2 = 0; pi2 < game.players.length; pi2++) {
+                        if (pi != pi2) {
+                            util.setExtend(cardMap[pi2].none, [cardMap[pi].known[ki]]);
+                        }
+                    }
+                }
+            }
+
             for (var pi = 0; pi < game.players.length; pi++) {
                 // remove any entries that appear in "none" from "some"
                 for (var ni = 0; ni < cardMap[pi].none.length; ni++) {
