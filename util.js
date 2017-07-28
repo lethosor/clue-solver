@@ -6,5 +6,16 @@ define("util", [], function() {
                     set.push(item);
             });
         },
+        arrayRemove: function(array, item) {
+            var removed = false;
+            while (true) {
+                var i = array.indexOf(item);
+                if (i == -1)
+                    break;
+                array.splice(i, 1);
+                removed = true;
+            }
+            return removed;
+        },
     }
 });

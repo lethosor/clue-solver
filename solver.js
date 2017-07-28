@@ -63,8 +63,42 @@ define("solver", ["util"], function(util) {
         return matrix;
     }
 
+    function solve(game) {
+        var changed;
+        var cardMap = getPlayerCardMap(game);
+
+        do {
+            changed = false;
+
+            for (var pi = 0; pi < game.players.length; pi++) {
+                // remove any entries that appear in "none" from "some"
+                for (var ni = 0; ni < cardMap[pi].none.length; ni++) {
+                    for (var si = 0; si < cardMap[pi].some.length; si++) {
+                        changed = changed || util.arrayRemove(cardMap[pi].some[si], cardMap[pi].none[ni]);
+                    }
+                }
+
+                // move any one-element arrays from "some" to "known"
+                for (var si = 0; si < cardMap[pi].some.length; si++) {
+                    var some = cardMap[pi].some;
+                    if (some[si].length == 1) {
+                        changed = true;
+                        util.setExtend(cardMap[pi].known, some[si]);
+                        // remove from "some" and adjust loop index
+                        some.splice(si, 1);
+                        si--;
+                    }
+                }
+            }
+
+        } while (changed);
+
+        return cardMap;
+    }
+
     return {
         getPlayerCardMap: getPlayerCardMap,
         getCardMatrix: getCardMatrix,
+        solve: solve,
     }
 });
