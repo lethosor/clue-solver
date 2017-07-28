@@ -1,4 +1,5 @@
-define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(ui, main, gameData, ListSelect) {
+define("ui/game-play", ["ui", "main", "game-data", "ui/list-select", "solver"],
+    function(ui, main, gameData, ListSelect, solver) {
 
     function addMod(orig, delta, mod) {
         var ret = orig + delta;
@@ -60,6 +61,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select"], function(u
         draw: function() {
             this.elt.find('#game-id').text(this.game.id);
             this.elt.find('#game-type').text(this.game.typeName);
+            this.elt.find('#num-solutions').text(solver.getNumSolutions(this.game));
         },
         selectPlayer: function(id) {
             this.current_player_id = id;

@@ -108,9 +108,36 @@ define("solver", ["util"], function(util) {
         return cardMap;
     }
 
+    function getNumSolutions(game) {
+        var cardMap = solve(game);
+        var mat = getCardMatrix(game, cardMap);
+        var ok_cards = {p: {}, r: {}, w: {}}
+        for (var pi = 0; pi < game.players.length; pi++) {
+            $.each(mat[pi], function(key, val) {
+                var type = key.substr(0, 1);
+                var id = Number(key.substr(1));
+                if (val == 'yes')
+                    ok_cards[type][id] = false;
+                else if (ok_cards[type][id] != false)
+                    ok_cards[type][id] = true;
+            });
+        }
+
+        var counts = {p: 0, r: 0, w: 0};
+        $.each(counts, function(type) {
+            $.each(ok_cards[type], function(_, val) {
+                if (val)
+                    counts[type]++;
+            });
+        });
+
+        return counts.p * counts.r * counts.w;
+    }
+
     return {
         getPlayerCardMap: getPlayerCardMap,
         getCardMatrix: getCardMatrix,
         solve: solve,
+        getNumSolutions: getNumSolutions,
     }
 });
