@@ -7,8 +7,10 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
         'no': 'danger',
     }
 
-    function Grid() {
-
+    function Grid(elt) {
+        elt.find('#use-solved').on('change', function(e) {
+            this.select($(e.target).prop('checked'));
+        }.bind(this));
     }
 
     $.extend(Grid.prototype, ui.View.prototype, {
@@ -17,8 +19,11 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
             this.game = this.data.game;
             this.cmap = solver.getPlayerCardMap(this.game);
             this.matrix_unsolved = solver.getCardMatrix(this.game, this.cmap);
-
-            this.elt.find('th:not(:first)').remove();
+            this.matrix_solved = solver.getCardMatrix(this.game, solver.solve(this.game));
+            this.select(true);
+        },
+        draw: function() {
+            this.elt.find('th:not(:first), tbody tr').remove();
             this.game.players.forEach(function(player, i) {
                 this.elt.find('thead tr').append(ui.renderTemplate('grid-header-col', {
                     color: this.game.gameData.players[i].color,
@@ -45,13 +50,18 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
                     for (var i = 0; i < game.players.length; i++) {
                         row.append($('<td>', {
                             class: CELL_CLASSES[
-                                this.matrix_unsolved[i][cat.substr(0, 1) + item_i]
+                                this.matrix_current[i][cat.substr(0, 1) + item_i]
                             ]
                         }));
                     }
                     tbody.append(row);
                 };
             };
+        },
+        select: function(use_solved) {
+            this.matrix_current = use_solved ? this.matrix_solved : this.matrix_unsolved;
+            this.elt.find('#use-solved').prop('checked', use_solved);
+            this.draw();
         },
     });
 

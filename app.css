@@ -89,3 +89,8 @@
     background-color: #eee;
     text-transform: capitalize;
 }
+
+.modal-header input[type=checkbox] {
+    margin-left: 10px;
+    margin-right: 4px;
+}
