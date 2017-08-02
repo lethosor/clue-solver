@@ -1,4 +1,4 @@
-define("ui/log-viewer", ["ui"], function(ui) {
+define("ui/log-viewer", ["ui", "main"], function(ui, main) {
 
     function LogViewer(elt) {
     }
@@ -50,6 +50,7 @@ define("ui/log-viewer", ["ui"], function(ui) {
             var index = this._getIndex(elt);
             this.game.log[index].deleted = !this.game.log[index].deleted;
             this._updateDeleteButton(index, elt);
+            main.gameManager.save();
         },
     });
 
