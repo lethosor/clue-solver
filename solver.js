@@ -17,6 +17,9 @@ define("solver", ["util"], function(util) {
         }
 
         game.log.forEach(function(entry) {
+            if (entry.deleted)
+                return;
+
             if (entry.card) {
                 map[entry.has.some].known.push(entry.card);
                 return;
