@@ -38,6 +38,13 @@ define("game-manager", ["game"], function(Game) {
             });
         },
         save: function() {
+            // remove "deleted": false fields from all logs (unnecessary)
+            this.games.map(function(game) {
+                game.log.map(function(e) {
+                    if (!e.deleted)
+                        e.deleted = undefined;
+                });
+            });
             localStorage.setItem('games', JSON.stringify(this.games));
         },
     };
