@@ -61,6 +61,9 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select", "solver"],
         draw: function() {
             this.elt.find('#game-id').text(this.game.id);
             this.elt.find('#game-type').text(this.game.typeName);
+            this.elt.find('#log-length').text(this.game.log.filter(function(e) {
+                return !e.deleted;
+            }).length);
             this.elt.find('#num-solutions').text(solver.getNumSolutions(this.game));
         },
         selectPlayer: function(id) {
