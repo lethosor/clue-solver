@@ -14,11 +14,12 @@ define("ui/list-select", [], function() {
 
     ListSelect.prototype = {
         render: function() {
+            var selected = this.selected;
             this.element.html('');
             this.options.forEach(function(opt, i) {
                 var item = $('<div>', {class: 'list-group-item', 'data-index': i})
                     .append(opt);
-                if (i == self.selected)
+                if (i == selected)
                     item.addClass('selected');
                 this.element.append(item);
             }.bind(this));
