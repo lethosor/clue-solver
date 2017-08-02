@@ -117,7 +117,7 @@ define("solver", ["util"], function(util) {
         var ok_cards = {p: {}, r: {}, w: {}}
         for (var pi = 0; pi < game.players.length; pi++) {
             $.each(mat[pi], function(key, val) {
-                var type = key.substr(0, 1);
+                var type = key[0];
                 var id = Number(key.substr(1));
                 if (val == 'yes')
                     ok_cards[type][id] = false;

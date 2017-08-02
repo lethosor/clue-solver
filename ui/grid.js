@@ -50,7 +50,7 @@ define("ui/grid", ["ui", "solver"], function(ui, solver) {
                         $('<td>').text(item.name || item)
                     );
                     for (var i = 0; i < game.players.length; i++) {
-                        var card = cat.substr(0, 1) + item_i;
+                        var card = cat[0] + item_i;
                         var td = $('<td>', {
                             class: CELL_CLASSES[
                                 this.matrix_current[i][card]

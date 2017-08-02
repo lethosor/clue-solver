@@ -46,7 +46,7 @@ define("game", ["game-data"], function(gameData) {
             return this.players[id].name;
         },
         getCardName: function(id) {
-            var type = id.substr(0, 1);
+            var type = id[0];
             var num = Number(id.match(/\d+$/));
             if (type == 'p')
                 return this.gameData.players[num].name;
