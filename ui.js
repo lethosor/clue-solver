@@ -14,6 +14,7 @@ define("ui", [], function() {
     }
 
     function init() {
+        $('.view').addClass('container');
         $(document).on('click', '.view a, .view button', function(e) {
             if (($(this).attr('href') || '').indexOf('#') == 0) {
                 e.preventDefault();
