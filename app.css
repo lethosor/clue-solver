@@ -35,6 +35,10 @@
     width: 100%;
 }
 
+.btn.pull-right {
+    margin-left: 2px;
+}
+
 .player-circle-icon {
     width: 80px;
     height: 80px;

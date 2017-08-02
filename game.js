@@ -45,6 +45,16 @@ define("game", ["game-data"], function(gameData) {
                 return 'Player ' + (id + 1);
             return this.players[id].name;
         },
+        getCardName: function(id) {
+            var type = id.substr(0, 1);
+            var num = Number(id.match(/\d+$/));
+            if (type == 'p')
+                return this.gameData.players[num].name;
+            else if (type == 'r')
+                return this.gameData.rooms[num];
+            else if (type == 'w')
+                return this.gameData.weapons[num];
+        },
         newLogEntry: function() {
             return {
                 player: undefined,

@@ -91,6 +91,7 @@
           <a class="btn btn-wide btn-default" href="#view/game-list">Switch game</a>
         </div>
         <div class="col-xs-4">
+          <a class="btn btn-wide btn-default" href="#showLog">Log</a>
         </div>
         <div class="col-xs-4">
           <a class="btn btn-wide btn-primary" href="#showGrid">Grid <span class="badge" id="num-solutions"></span></a>
@@ -159,8 +160,8 @@
 
     <div class="view modal" id="grid">
       <div class="modal-header">Grid
-      <label><input type="checkbox" id="use-solved">Solve</label>
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" href="#ui/hide">&times;</button>
+        <label><input type="checkbox" id="use-solved">Solve</label>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" href="#ui/hide">&times;</button>
       </div>
 
       <table class="table table-bordered solver-grid">
@@ -178,6 +179,28 @@
           <div class="player-circle-icon xs" style="background-color: {{color}};"></div>
           <div>{{name}}</div>
         </th>
+      </script>
+    </div>
+
+    <div class="view" id="log-viewer">
+      <h2>Game <span id="game-id"></span> log</h2>
+      <a class="btn btn-default" href="#back">Back</a>
+
+      <div class="alert alert-danger hidden" id="no-entries">No log entries found</div>
+      <div class="list-group"></div>
+
+      <script type="text/template" id="log-entry">
+        <div class="list-group-item" data-index="{{index}}">
+          <div class="player-circle-icon small pull-left" style="background-color: {{color}};"></div>
+          <a class="btn btn-default pull-right" href="#edit">Edit</a>
+          <a class="btn btn-danger pull-right" href="#delete">Delete</a>
+          <div class="" style="overflow: hidden;">
+            <div>{{name}} ({{player_name}})</div>
+            <div>{{cards}}</div>
+            <div>Yes: {{some_name}} {{known_card}}</div>
+            <div>No: {{none_names}}</div>
+          </div>
+        </div>
       </script>
     </div>
 

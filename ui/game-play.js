@@ -185,6 +185,10 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select", "solver"],
                 this.show();
             }
         },
+        showLog: function() {
+            ui.hideView(this.id);
+            ui.showView('log-viewer', {game: this.game});
+        },
     });
 
     return GamePlay;
