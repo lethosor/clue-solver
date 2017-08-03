@@ -134,6 +134,22 @@ define("solver", ["util"], function(util) {
             });
         });
 
+        // check if all players don't have a card - this must be a solution card
+        $.each(mat[0], function(card_id, val) {
+            var might_have = false;
+            for (var pi = 0; pi < mat.length; pi++) {
+                if (mat[pi][card_id] != 'no') {
+                    // someone has (or could have) this card
+                    might_have = true;
+                }
+            }
+
+            if (!might_have) {
+                // nobody possibly has this card
+                counts[card_id[0]] = 1;
+            }
+        });
+
         return counts.p * counts.r * counts.w;
     }
 
