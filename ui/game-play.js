@@ -121,7 +121,7 @@ define("ui/game-play", ["ui", "main", "game-data", "ui/list-select", "solver"],
                     this.gdata.rooms[this.card_choices.rooms.selected]
                 ]);
                 this.shown_choices.onChange(this.selectShown.bind(this));
-                this.elt.find('#container-shown').append(this.shown_choices.element);
+                this.elt.find('#container-shown').html('').append(this.shown_choices.element);
                 this.elt.find('[href="#secondPlayerSome"]').addClass('disabled');
             }
             else {
