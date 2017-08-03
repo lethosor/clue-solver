@@ -22,7 +22,9 @@ define("ui/log-viewer", ["ui", "main"], function(ui, main) {
                         'w' + entry.guess.weapon
                     ].map(game.getCardName.bind(game)).join(', '),
                     some_name: entry.has.some == undefined ? 'none' : game.getPlayerName(entry.has.some),
-                    none_names: entry.has.none.map(game.getPlayerName.bind(game)).join(', '),
+                    none_names: entry.has.none.map(function(player_id) {
+                        return game.getPlayerName(player_id);
+                    }).join(', '),
                     known_card: entry.card ? ('(' + game.getCardName(entry.card) + ')') : '',
                 }));
                 this._updateDeleteButton(i, this.elt.find('.list-group-item:last [href="#delete"]'))
