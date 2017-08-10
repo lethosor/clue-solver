@@ -13,7 +13,11 @@ define("solver", ["util"], function(util) {
         */
         var map = {};
         for (var i = 0; i < game.players.length; i++) {
-            map[i] = {known: [], some: [], none: []};
+            map[i] = {
+                known: game.getPlayerOverrides(i).known.slice(),
+                some: [],
+                none: game.getPlayerOverrides(i).none.slice()
+            };
         }
 
         game.log.forEach(function(entry) {

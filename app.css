@@ -100,6 +100,15 @@
     text-transform: capitalize;
 }
 
+.solver-grid td.solver-cell {
+    cursor: pointer;
+}
+
+.solver-grid td.solver-cell.overridden::after {
+    content: '\25CF';
+    float: right;
+}
+
 .modal-header input[type=checkbox] {
     margin-left: 10px;
     margin-right: 4px;

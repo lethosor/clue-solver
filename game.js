@@ -4,6 +4,8 @@ define("game", ["game-data"], function(gameData) {
         this.id = id;
         this.type = data.type || '';
         this.players = data.players || [];
+        this.overrides = data.overrides || [];
+
         /*
         Log format:
         {
@@ -44,6 +46,15 @@ define("game", ["game-data"], function(gameData) {
             if (!this.players[id].name && !allow_empty)
                 return 'Player ' + (id + 1);
             return this.players[id].name;
+        },
+        getPlayerOverrides: function(id) {
+            if (this.players[id]) {
+                this.overrides[id] = this.overrides[id] || {
+                    known: [],
+                    none: [],
+                };
+                return this.overrides[id];
+            }
         },
         getCardName: function(id) {
             var type = id[0];
