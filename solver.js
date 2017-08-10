@@ -20,13 +20,13 @@ define("solver", ["util"], function(util) {
             if (entry.deleted)
                 return;
 
+            cards = ['w' + entry.guess.weapon, 'p' + entry.guess.player, 'r' + entry.guess.room];
             if (entry.card) {
                 map[entry.has.some].known.push(entry.card);
-                return;
             }
-            cards = ['w' + entry.guess.weapon, 'p' + entry.guess.player, 'r' + entry.guess.room];
-            if (entry.has.some !== undefined)
+            else if (entry.has.some !== undefined) {
                 map[entry.has.some].some.push(cards);
+            }
             entry.has.none.forEach(function(p) {
                 util.setExtend(map[p].none, cards);
             });
